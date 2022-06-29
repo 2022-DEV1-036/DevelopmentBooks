@@ -40,6 +40,12 @@ public class BascketControllerTest {
   @Test
   public void checkPostBooksResponseStatusCode () throws Exception {
     List<Book> bookList = new ArrayList<Book>();
+    Book book = new Book("Clean Code (Robert Martin, 2008)",50.00);
+    bookList.add(book);
+    mockMvc.perform(post("/api/v1/discount")
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(book)))
+      .andExpect(status().isOk());
 
 
   }
