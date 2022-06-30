@@ -50,7 +50,25 @@ public class BookDiscountServiceTest {
     List<Book> bookList = new ArrayList<Book>();
     Object discount = bookDiscountService.calculateDiscount(bookList);
     assertEquals("Your basket is empty !", discount);
+  }
 
+  @Test
+  public void checkNumberOfDifferentBookInTheBasket() throws Exception {
+    List<Book> bookList = new ArrayList<Book>();
+    Object discount = bookDiscountService.calculateDiscount(bookList);
+    Book book1 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    Book book2 = new Book("The Clean Coder (Robert Martin, 2011)", 50.00);
+    Book book3 = new Book("Clean Architecture (Robert Martin, 2017)", 50.00);
+    Book book4 = new Book("Test Driven Development by Example (Kent Beck, 2003)", 50.00);
+    Book book5 = new Book("Working Effectively With Legacy Code (Michael C. Feathers, 2004)", 50.00);
+    bookList.add(book1);
+    bookList.add(book2);
+    bookList.add(book3);
+    bookList.add(book4);
+    bookList.add(book5);
+    int numberOfDifferentBooks = bookDiscountService.calculateNumberOfDiffrentBooks(bookList);
+
+    assertEquals(5, numberOfDifferentBooks);
   }
 
 }
