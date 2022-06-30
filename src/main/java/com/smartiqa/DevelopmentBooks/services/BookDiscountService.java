@@ -15,6 +15,7 @@ public class BookDiscountService {
 
   public Object calculateDiscount(List<Book> bookList) {
     int numberOfBooks = bookList.size();
+
     if (numberOfBooks == 0) {
       return "Your basket is empty !";
     }
@@ -24,5 +25,17 @@ public class BookDiscountService {
     return 0.0;
   }
 
+  public static <T> Predicate<T> distinctBooksByName(
+    Function<? super T, ?> keyExtractor) {
+    Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+    return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+  }
 
+  public int calculateNumberOfDiffrentBooks(List<Book> bookList) {
+    List<Book> listOfDistincBooks = bookList.stream()
+      .filter(distinctBooksByName(b -> b.getBookName()))
+      .collect(Collectors.toList());
+    System.out.println(listOfDistincBooks);
+    return listOfDistincBooks.size();
+  }
 }
