@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @AutoConfigureMockMvc
 @SpringBootTest
 public class BascketServiceTest {
@@ -41,6 +43,8 @@ public class BascketServiceTest {
     Book book = new Book("Clean Code (Robert Martin, 2008)", 50.00);
     bookList.add(book);
     Double  discount = bookDiscountService.calculateDiscount(bookList);
+
+    assertEquals(50.00,discount);
 
   }
 }
