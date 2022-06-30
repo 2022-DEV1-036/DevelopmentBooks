@@ -52,4 +52,16 @@ public class BookDiscountServiceTest {
     assertEquals("Your basket is empty !", discount);
 
   }
+
+  @Test
+  public void checkPriceForTwoSameBooksInBasket() throws Exception {
+    List<Book> bookList = new ArrayList<Book>();
+    Book book1 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    Book book2 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    bookList.add(book1);
+    bookList.add(book2);
+    Object discount = bookDiscountService.calculateDiscount(bookList);
+    assertEquals(100.00, discount);
+
+  }
 }
