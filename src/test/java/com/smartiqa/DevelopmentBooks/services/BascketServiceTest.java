@@ -26,7 +26,8 @@ public class BascketServiceTest {
   public static final MediaType APPLICATION_JSON_UTF8 = MediaType.APPLICATION_JSON;
 
   // Inject services
-
+  @Autowired
+  BookDiscountService bookDiscountService;
 
   @BeforeAll
   public static void setup() {
