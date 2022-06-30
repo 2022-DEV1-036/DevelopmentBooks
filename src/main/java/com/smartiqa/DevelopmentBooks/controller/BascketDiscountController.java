@@ -1,4 +1,4 @@
-package com.smartiqa.DevelopmentBooks.Controller;
+package com.smartiqa.DevelopmentBooks.controller;
 
 import com.smartiqa.DevelopmentBooks.models.Book;
 import org.springframework.web.bind.annotation.PostMapping;

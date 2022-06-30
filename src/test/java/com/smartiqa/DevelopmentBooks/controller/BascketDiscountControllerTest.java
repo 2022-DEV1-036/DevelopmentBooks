@@ -1,4 +1,4 @@
-package com.smartiqa.DevelopmentBooks;
+package com.smartiqa.DevelopmentBooks.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartiqa.DevelopmentBooks.models.Book;
@@ -16,8 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -39,7 +40,6 @@ public class BascketDiscountControllerTest {
     request = new MockHttpServletRequest();
   }
   @Test
-  @CanIgnoreReturnValue
   public void checkPostBooksResponseStatusCode () throws Exception {
     List<Book> bookList = new ArrayList<Book>();
     Book book = new Book("Clean Code (Robert Martin, 2008)",50.00);
@@ -47,8 +47,9 @@ public class BascketDiscountControllerTest {
     mockMvc.perform(post("/api/v1/discount")
       .contentType(MediaType.APPLICATION_JSON)
       .content(objectMapper.writeValueAsString(bookList)))
-      .andExpect(status().isOk());
-
+      .andExpect(status().isOk())
+      .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+      .andExpect(jsonPath("$",isA(Double.class)));
 
   }
 
