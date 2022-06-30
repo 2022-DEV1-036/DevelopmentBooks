@@ -2,6 +2,7 @@ package com.smartiqa.DevelopmentBooks;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartiqa.DevelopmentBooks.models.Book;
+import org.assertj.core.util.CanIgnoreReturnValue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -20,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class BascketControllerTest {
+public class BascketDiscountControllerTest {
 
   //Inject Support Utils
   private static MockHttpServletRequest request;
@@ -38,13 +39,14 @@ public class BascketControllerTest {
     request = new MockHttpServletRequest();
   }
   @Test
+  @CanIgnoreReturnValue
   public void checkPostBooksResponseStatusCode () throws Exception {
     List<Book> bookList = new ArrayList<Book>();
     Book book = new Book("Clean Code (Robert Martin, 2008)",50.00);
     bookList.add(book);
     mockMvc.perform(post("/api/v1/discount")
       .contentType(MediaType.APPLICATION_JSON)
-      .content(objectMapper.writeValueAsString(book)))
+      .content(objectMapper.writeValueAsString(bookList)))
       .andExpect(status().isOk());
 
 
