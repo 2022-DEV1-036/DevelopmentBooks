@@ -12,6 +12,10 @@ public class BookDiscountService {
 
   public Object calculateDiscount(List<Book> bookList) {
     int numberOfBooks = bookList.size();
+
+    if (numberOfBooks == 0) {
+      return "Your basket is empty !";
+    }
     if (numberOfBooks == 1) {
       return bookList.get(0).getBookPrice();
     }
