@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class BascketServiceTest {
+public class BookDiscountServiceTest {
   //Inject Support Utils
   private static MockHttpServletRequest request;
   @Autowired
@@ -36,15 +36,13 @@ public class BascketServiceTest {
     request = new MockHttpServletRequest();
   }
 
-
   @Test
   public void checkPriceForOneBook() throws Exception {
     List<Book> bookList = new ArrayList<Book>();
     Book book = new Book("Clean Code (Robert Martin, 2008)", 50.00);
     bookList.add(book);
-    Double  discount = bookDiscountService.calculateDiscount(bookList);
-
-    assertEquals(50.00,discount);
+    Object discount = bookDiscountService.calculateDiscount(bookList);
+    assertEquals(50.00, discount);
 
   }
 }
