@@ -11,7 +11,7 @@ import java.util.List;
 public class BascketDiscountController {
 
   @PostMapping("/api/v1/discount")
-  Double  getDiscountPrice (@RequestBody List<Book> listBooks) {
+  public Double getDiscountPrice (@RequestBody List<Book> listBooks) {
     return 0.0;
   }
 }
