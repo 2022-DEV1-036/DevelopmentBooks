@@ -45,4 +45,11 @@ public class BookDiscountServiceTest {
     assertEquals(50.00, discount);
 
   }
+  @Test
+  public void checkPriceForEmptyBasket() throws Exception {
+    List<Book> bookList = new ArrayList<Book>();
+    Object discount = bookDiscountService.calculateDiscount(bookList);
+    assertEquals("Your basket is empty !", discount);
+
+  }
 }
