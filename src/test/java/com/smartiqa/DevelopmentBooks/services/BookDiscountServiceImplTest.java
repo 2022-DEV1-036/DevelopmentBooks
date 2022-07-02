@@ -1,7 +1,9 @@
 package com.smartiqa.DevelopmentBooks.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smartiqa.DevelopmentBooks.exceptions.EmptyBasketException;
 import com.smartiqa.DevelopmentBooks.models.Book;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,16 +48,18 @@ public class BookDiscountServiceImplTest {
 
   }
   @Test
-  public void checkPriceForEmptyBasket() throws Exception {
-    List<Book> bookList = new ArrayList<Book>();
-    Object discount = bookDiscountServiceImpl.calculateDiscount(bookList);
-    assertEquals("Your basket is empty !", discount);
+  public void shouldThrowEmptyBasketExceptionForEmptyBasket() throws Exception {
+
+    Assertions.assertThrows(EmptyBasketException.class, () -> {
+      List<Book> bookList = new ArrayList<Book>();
+      Object discount = bookDiscountServiceImpl.calculateDiscount(bookList);
+    });
+
   }
 
   @Test
-  public void checkNumberOfDifferentBookInTheBasket() throws Exception {
+  public void shouldReturnTheNumberOfDifferentBooksInABasket() throws Exception {
     List<Book> bookList = new ArrayList<Book>();
-    Object discount = bookDiscountServiceImpl.calculateDiscount(bookList);
     Book book1 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
     Book book2 = new Book("The Clean Coder (Robert Martin, 2011)", 50.00);
     Book book3 = new Book("Clean Architecture (Robert Martin, 2017)", 50.00);

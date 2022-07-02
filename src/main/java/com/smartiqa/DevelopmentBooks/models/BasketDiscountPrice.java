@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class BasketDiscoutPrice {
+public class BasketDiscountPrice {
 
   private Double basketAmount ;
   private int numberOfArticles ;
