@@ -2,6 +2,7 @@ package com.smartiqa.DevelopmentBooks.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartiqa.DevelopmentBooks.exceptions.EmptyBasketException;
+import com.smartiqa.DevelopmentBooks.models.BasketDiscountPrice;
 import com.smartiqa.DevelopmentBooks.models.Book;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -39,7 +40,7 @@ public class BookDiscountServiceImplTest {
   }
 
   @Test
-  public void checkPriceForOneBook() throws Exception {
+  public void shouldReturnThePriceOfOneBookForOneBookBasket() throws Exception {
     List<Book> bookList = new ArrayList<Book>();
     Book book = new Book("Clean Code (Robert Martin, 2008)", 50.00);
     bookList.add(book);
@@ -82,5 +83,33 @@ public class BookDiscountServiceImplTest {
 
     assertEquals(5, numberOfDifferentBooks);
   }
+  // test for applying discount for only two different Books in the basket
+  @Test
+  public void shouldApply5percentDiscountForTwoDifferentBooksInBasket() throws Exception {
+    List<Book> bookList = new ArrayList<Book>();
+    Book book1 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    Book book2 = new Book("The Clean Coder (Robert Martin, 2011)", 50.00);
+    Book book3 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    Book book4 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    Book book5 = new Book("The Clean Coder (Robert Martin, 2011)", 50.00);
+    Book book6 = new Book("The Clean Coder (Robert Martin, 2011)", 50.00);
+    Book book7 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    Book book8 = new Book("The Clean Coder (Robert Martin, 2011)", 50.00);
+    Book book9 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    bookList.add(book1);
+    bookList.add(book2);
+    bookList.add(book3);
+    bookList.add(book4);
+    bookList.add(book5);
+    bookList.add(book6);
+    bookList.add(book7);
+    bookList.add(book8);
+    bookList.add(book9);
+    BasketDiscountPrice basketDiscountPrice = bookDiscountServiceImpl.calculateDiscount(bookList);
+
+    assertEquals(new BasketDiscountPrice(445.00,9), basketDiscountPrice);
+  }
+
+
 
 }

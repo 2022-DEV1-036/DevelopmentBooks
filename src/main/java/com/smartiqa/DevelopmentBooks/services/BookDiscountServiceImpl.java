@@ -1,6 +1,7 @@
 package com.smartiqa.DevelopmentBooks.services;
 
 import com.smartiqa.DevelopmentBooks.exceptions.EmptyBasketException;
+import com.smartiqa.DevelopmentBooks.models.BasketDiscountPrice;
 import com.smartiqa.DevelopmentBooks.models.Book;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +16,17 @@ import java.util.stream.Collectors;
 public class BookDiscountServiceImpl implements  BookDiscountService {
 
   @Override
-  public Object calculateDiscount(List<Book> bookList) {
+  public BasketDiscountPrice calculateDiscount(List<Book> bookList) {
     Integer numberOfBooks = bookList.size();
-    System.out.println(numberOfBooks);
-    if (numberOfBooks==0) {
-      System.out.println(numberOfBooks);
+    if (numberOfBooks == 0) {
       throw new EmptyBasketException("Your basket is empty !");
-
     }
     if (numberOfBooks == 1) {
-      return bookList.get(0).getBookPrice();
+      BasketDiscountPrice basketDiscountPrice = new BasketDiscountPrice(bookList.get(0).getBookPrice(), numberOfBooks);
+      return basketDiscountPrice;
     }
-    return 0.0;
+
+    return new BasketDiscountPrice();
   }
 
   @Override
