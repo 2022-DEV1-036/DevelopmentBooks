@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class BascketDiscountControllerTest {
   }
 
   @Test
-  public void checkPostBooksResponseStatusCode() throws Exception {
+  public void shouldReturnTheExpectedResponse() throws Exception {
     List<Book> bookList = new ArrayList<Book>();
     Book book = new Book("Clean Code (Robert Martin, 2008)", 50.00);
     bookList.add(book);
@@ -46,7 +47,7 @@ public class BascketDiscountControllerTest {
       .content(objectMapper.writeValueAsString(bookList)))
       .andExpect(status().isOk())
       .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-      .andExpect(jsonPath("$", isA(Double.class)));
+      .andExpect(jsonPath("$.basketAmount", isA(Double.class)));
 
   }
 

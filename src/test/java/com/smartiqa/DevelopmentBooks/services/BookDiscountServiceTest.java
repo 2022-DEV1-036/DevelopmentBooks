@@ -74,7 +74,7 @@ public class BookDiscountServiceTest {
     bookList.add(book7);
     bookList.add(book8);
     bookList.add(book9);
-    int numberOfDifferentBooks = bookDiscountService.calculateNumberOfDiffrentBooks(bookList);
+    int numberOfDifferentBooks = bookDiscountService.calculateNumberOfDifferentBooks(bookList);
 
     assertEquals(5, numberOfDifferentBooks);
   }

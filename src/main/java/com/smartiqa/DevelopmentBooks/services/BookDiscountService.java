@@ -31,11 +31,11 @@ public class BookDiscountService {
     return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
   }
 
-  public int calculateNumberOfDiffrentBooks(List<Book> bookList) {
-    List<Book> listOfDistincBooks = bookList.stream()
+  public int calculateNumberOfDifferentBooks(List<Book> bookList) {
+    List<Book> listOfDistinctBooks = bookList.stream()
       .filter(distinctBooksByName(b -> b.getBookName()))
       .collect(Collectors.toList());
-    System.out.println(listOfDistincBooks);
-    return listOfDistincBooks.size();
+    System.out.println(listOfDistinctBooks);
+    return listOfDistinctBooks.size();
   }
 }
