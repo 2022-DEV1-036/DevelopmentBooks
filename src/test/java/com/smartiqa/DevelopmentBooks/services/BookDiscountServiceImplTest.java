@@ -201,5 +201,26 @@ public class BookDiscountServiceImplTest {
     assertEquals(new BasketDiscountPrice(337.5,9), basketDiscountPrice);
   }
 
+  /* Test for applying  10% discount on the three different Books of a Four Books type basket
+   *  Rule = three different Books of a Four Books type basket ==> apply  10 % discount on the 3 different Books
+   *                                                                + the fourth Book price=50.00 £ :)
+   * */
+
+  @Test
+  public void shouldApply10percentDiscountForThreeDifferentBooksInBasketOf4Books() throws Exception {
+    List<Book> bookList = new ArrayList<Book>();
+    Book book1 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    Book book2 = new Book("The Clean Coder (Robert Martin, 2011)", 50.00);
+    Book book3 = new Book("Clean Architecture (Robert Martin, 2017)", 50.00);
+    Book book4 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
+    bookList.add(book1);
+    bookList.add(book2);
+    bookList.add(book3);
+    bookList.add(book4);
+    BasketDiscountPrice basketDiscountPrice = bookDiscountServiceImpl.calculateDiscount(bookList);
+
+    assertEquals(new BasketDiscountPrice(185.00,9), basketDiscountPrice);
+  }
+
 
 }
