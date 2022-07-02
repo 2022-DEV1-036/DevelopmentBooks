@@ -27,15 +27,19 @@ public class BookDiscountServiceImpl implements BookDiscountService {
         basketDiscountPrice = new BasketDiscountPrice(bookList.get(0).getBookPrice(), numberOfBooks);
         break;
       case 2:
-        Double totalAmount = (numberOfBooks * bookList.get(0).getBookPrice());
-        Double totalDiscountAmount = totalAmount - (totalAmount * 5 / 100);
-        basketDiscountPrice.setBasketAmount(totalDiscountAmount);
+        basketDiscountPrice.setBasketAmount(
+          calculateTotalBasketDiscount(
+            numberOfBooks, bookList.get(0).getBookPrice())
+            - (calculateTotalBasketDiscount(numberOfBooks, bookList.get(0).getBookPrice() * 5 / 100))
+        );
         basketDiscountPrice.setNumberOfArticles(numberOfBooks);
         break;
       case 3:
-        Double totalAmount3 = (numberOfBooks * bookList.get(0).getBookPrice());
-        Double totalDiscountAmount3 = totalAmount3 - (totalAmount3 * 10 / 100);
-        basketDiscountPrice.setBasketAmount(totalDiscountAmount3);
+        basketDiscountPrice.setBasketAmount(
+          calculateTotalBasketDiscount(
+              numberOfBooks, bookList.get(0).getBookPrice())
+            - (calculateTotalBasketDiscount(numberOfBooks, bookList.get(0).getBookPrice() * 10 / 100))
+        );
         basketDiscountPrice.setNumberOfArticles(numberOfBooks);
         break;
       default:
@@ -58,5 +62,9 @@ public class BookDiscountServiceImpl implements BookDiscountService {
     Function<? super T, ?> keyExtractor) {
     Map<Object, Boolean> seen = new ConcurrentHashMap<>();
     return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+  }
+
+  public Double calculateTotalBasketDiscount(int numberOfBooks, Double bookPrice) {
+    return numberOfBooks * bookPrice;
   }
 }
