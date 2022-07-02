@@ -219,7 +219,7 @@ public class BookDiscountServiceImplTest {
     bookList.add(book4);
     BasketDiscountPrice basketDiscountPrice = bookDiscountServiceImpl.calculateDiscount(bookList);
 
-    assertEquals(new BasketDiscountPrice(185.00,9), basketDiscountPrice);
+    assertEquals(new BasketDiscountPrice(185.00,4), basketDiscountPrice);
   }
 
 
