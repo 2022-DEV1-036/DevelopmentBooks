@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class BookDiscountServiceTest {
+public class BookDiscountServiceImplTest {
   //Inject Support Utils
   private static MockHttpServletRequest request;
   @Autowired
@@ -29,7 +29,7 @@ public class BookDiscountServiceTest {
 
   // Inject services
   @Autowired
-  BookDiscountService bookDiscountService;
+  BookDiscountServiceImpl bookDiscountServiceImpl;
 
   @BeforeAll
   public static void setup() {
@@ -41,21 +41,21 @@ public class BookDiscountServiceTest {
     List<Book> bookList = new ArrayList<Book>();
     Book book = new Book("Clean Code (Robert Martin, 2008)", 50.00);
     bookList.add(book);
-    Object discount = bookDiscountService.calculateDiscount(bookList);
+    Object discount = bookDiscountServiceImpl.calculateDiscount(bookList);
     assertEquals(50.00, discount);
 
   }
   @Test
   public void checkPriceForEmptyBasket() throws Exception {
     List<Book> bookList = new ArrayList<Book>();
-    Object discount = bookDiscountService.calculateDiscount(bookList);
+    Object discount = bookDiscountServiceImpl.calculateDiscount(bookList);
     assertEquals("Your basket is empty !", discount);
   }
 
   @Test
   public void checkNumberOfDifferentBookInTheBasket() throws Exception {
     List<Book> bookList = new ArrayList<Book>();
-    Object discount = bookDiscountService.calculateDiscount(bookList);
+    Object discount = bookDiscountServiceImpl.calculateDiscount(bookList);
     Book book1 = new Book("Clean Code (Robert Martin, 2008)", 50.00);
     Book book2 = new Book("The Clean Coder (Robert Martin, 2011)", 50.00);
     Book book3 = new Book("Clean Architecture (Robert Martin, 2017)", 50.00);
@@ -74,7 +74,7 @@ public class BookDiscountServiceTest {
     bookList.add(book7);
     bookList.add(book8);
     bookList.add(book9);
-    int numberOfDifferentBooks = bookDiscountService.calculateNumberOfDifferentBooks(bookList);
+    int numberOfDifferentBooks = bookDiscountServiceImpl.calculateNumberOfDifferentBooks(bookList);
 
     assertEquals(5, numberOfDifferentBooks);
   }
