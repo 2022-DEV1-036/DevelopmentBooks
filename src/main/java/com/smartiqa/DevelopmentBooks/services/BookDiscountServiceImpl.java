@@ -32,6 +32,12 @@ public class BookDiscountServiceImpl implements BookDiscountService {
         basketDiscountPrice.setBasketAmount(totalDiscountAmount);
         basketDiscountPrice.setNumberOfArticles(numberOfBooks);
         break;
+      case 3:
+        Double totalAmount3 = (numberOfBooks * bookList.get(0).getBookPrice());
+        Double totalDiscountAmount3 = totalAmount3 - (totalAmount3 * 10 / 100);
+        basketDiscountPrice.setBasketAmount(totalDiscountAmount3);
+        basketDiscountPrice.setNumberOfArticles(numberOfBooks);
+        break;
       default:
         break;
     }

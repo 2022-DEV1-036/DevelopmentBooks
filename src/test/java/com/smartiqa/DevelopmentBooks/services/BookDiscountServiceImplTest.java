@@ -84,7 +84,7 @@ public class BookDiscountServiceImplTest {
 
     assertEquals(5, numberOfDifferentBooks);
   }
-  // test for applying discount for only two different Books in the basket
+  // test for applying  5 % discount for only two different Books in the basket
   @Test
   public void shouldApply5percentDiscountForTwoDifferentBooksInBasket() throws Exception {
     List<Book> bookList = new ArrayList<Book>();
@@ -111,6 +111,7 @@ public class BookDiscountServiceImplTest {
     assertEquals(new BasketDiscountPrice(427.5,9), basketDiscountPrice);
   }
 
+  // test for applying 10 % discount for only Three different Books in the basket
   @Test
   public void shouldApply10percentDiscountForThreeDifferentBooksInBasket() throws Exception {
     List<Book> bookList = new ArrayList<Book>();
