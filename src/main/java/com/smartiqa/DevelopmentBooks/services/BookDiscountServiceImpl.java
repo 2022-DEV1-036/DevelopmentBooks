@@ -13,20 +13,30 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
-public class BookDiscountServiceImpl implements  BookDiscountService {
+public class BookDiscountServiceImpl implements BookDiscountService {
 
   @Override
   public BasketDiscountPrice calculateDiscount(List<Book> bookList) {
     Integer numberOfBooks = bookList.size();
-    if (numberOfBooks == 0) {
-      throw new EmptyBasketException("Your basket is empty !");
+    BasketDiscountPrice basketDiscountPrice = new BasketDiscountPrice();
+    int numberOfDifferentBooks = calculateNumberOfDifferentBooks(bookList);
+    switch (numberOfDifferentBooks) {
+      case 0:
+        throw new EmptyBasketException("Your basket is empty !");
+      case 1:
+        basketDiscountPrice = new BasketDiscountPrice(bookList.get(0).getBookPrice(), numberOfBooks);
+        break;
+      case 2:
+        Double totalAmount = (numberOfBooks * bookList.get(0).getBookPrice());
+        Double totalDiscountAmount = totalAmount - (totalAmount * 5 / 100);
+        basketDiscountPrice.setBasketAmount(totalDiscountAmount);
+        basketDiscountPrice.setNumberOfArticles(numberOfBooks);
+        break;
+      default:
+        break;
     }
-    if (numberOfBooks == 1) {
-      BasketDiscountPrice basketDiscountPrice = new BasketDiscountPrice(bookList.get(0).getBookPrice(), numberOfBooks);
-      return basketDiscountPrice;
-    }
+    return basketDiscountPrice;
 
-    return new BasketDiscountPrice();
   }
 
   @Override

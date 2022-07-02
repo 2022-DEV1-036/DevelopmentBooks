@@ -44,8 +44,9 @@ public class BookDiscountServiceImplTest {
     List<Book> bookList = new ArrayList<Book>();
     Book book = new Book("Clean Code (Robert Martin, 2008)", 50.00);
     bookList.add(book);
-    Object discount = bookDiscountServiceImpl.calculateDiscount(bookList);
-    assertEquals(50.00, discount);
+    BasketDiscountPrice basketDiscountPrice = bookDiscountServiceImpl.calculateDiscount(bookList);
+
+    assertEquals(new BasketDiscountPrice(50.00,1), basketDiscountPrice);
 
   }
   @Test
@@ -107,7 +108,7 @@ public class BookDiscountServiceImplTest {
     bookList.add(book9);
     BasketDiscountPrice basketDiscountPrice = bookDiscountServiceImpl.calculateDiscount(bookList);
 
-    assertEquals(new BasketDiscountPrice(445.00,9), basketDiscountPrice);
+    assertEquals(new BasketDiscountPrice(427.5,9), basketDiscountPrice);
   }
 
 
