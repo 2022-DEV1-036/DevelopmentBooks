@@ -21,6 +21,8 @@ public class BookDiscountServiceImpl implements BookDiscountService {
     BasketDiscountPrice basketDiscountPrice = new BasketDiscountPrice();
     int numberOfDifferentBooks = calculateNumberOfDifferentBooks(bookList);
 
+
+
     if (numberOfBooks==0){
       throw new EmptyBasketException("Your basket is empty !");
     }
