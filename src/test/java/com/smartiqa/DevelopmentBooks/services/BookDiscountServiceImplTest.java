@@ -243,24 +243,6 @@ public class BookDiscountServiceImplTest {
     assertEquals(new BasketDiscountPrice(200.00,4), basketDiscountPrice);
   }
 
-  /* Test : shouldThrowExceptionWhenBookPriceOrBookNameAreEmptyOrNull
-   * */
-
-  @Test
-  public void shouldThrowExceptionWhenBookPriceOrBookNameAreEmptyOrNull() throws Exception {
-    Assertions.assertThrows(MethodArgumentNotValidException.class, () -> {
-      List<Book> bookList = new ArrayList<Book>();
-      Book book1 = new Book(null,null);
-      Book book2 = new Book();
-      Book book3 = new Book(null,null);
-      Book book4 = new Book();
-      bookList.add(book1);
-      bookList.add(book2);
-      bookList.add(book3);
-      bookList.add(book4);
-      Object discount = bookDiscountServiceImpl.calculateDiscount(bookList);
-    });
-  }
 
 
 

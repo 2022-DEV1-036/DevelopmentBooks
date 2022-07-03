@@ -2,6 +2,7 @@ package com.smartiqa.DevelopmentBooks.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartiqa.DevelopmentBooks.models.Book;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,26 @@ public class BascketDiscountControllerTest {
       .andExpect(content().contentType(APPLICATION_JSON_UTF8))
       .andExpect(jsonPath("$.basketAmount", isA(Double.class)));
 
+  }
+
+  /* Test : shouldThrowExceptionWhenABookPriceOrBookNameAreEmptyOrNull
+   * */
+  @Test
+  public void shouldThrowExceptionWhenBookPriceOrBookNameAreEmptyOrNull() throws Exception {
+    Assertions.assertThrows(MethodArgumentNotValidException.class, () -> {
+      List<Book> bookList = new ArrayList<Book>();
+      Book book1 = new Book(null,null);
+      Book book2 = new Book();
+      Book book3 = new Book(null,null);
+      Book book4 = new Book();
+      bookList.add(book1);
+      bookList.add(book2);
+      bookList.add(book3);
+      bookList.add(book4);
+
+      mockMvc.perform(post("/api/v1/discount")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(bookList)));});
   }
 
 
