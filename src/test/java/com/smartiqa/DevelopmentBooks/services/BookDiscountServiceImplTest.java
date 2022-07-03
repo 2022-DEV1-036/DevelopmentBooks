@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -223,9 +224,7 @@ public class BookDiscountServiceImplTest {
   }
 
 
-  /* Test for applying  10% discount on the three different Books of a Four Books type basket
-   *  Rule = three different Books of a Four Books type basket ==> apply  10 % discount on the 3 different Books
-   *                                                                + the fourth Book price=50.00 £ :)
+  /*  Test : shouldNotApplyDiscountForNotEmptyBasketWithOneDifferentBookInit
    * */
 
   @Test
@@ -243,6 +242,27 @@ public class BookDiscountServiceImplTest {
 
     assertEquals(new BasketDiscountPrice(200.00,4), basketDiscountPrice);
   }
+
+  /* Test : shouldThrowExceptionWhenBookPriceOrBookNameAreEmptyOrNull
+   * */
+
+  @Test
+  public void shouldThrowExceptionWhenBookPriceOrBookNameAreEmptyOrNull() throws Exception {
+    Assertions.assertThrows(MethodArgumentNotValidException.class, () -> {
+      List<Book> bookList = new ArrayList<Book>();
+      Book book1 = new Book(null,null);
+      Book book2 = new Book();
+      Book book3 = new Book(null,null);
+      Book book4 = new Book();
+      bookList.add(book1);
+      bookList.add(book2);
+      bookList.add(book3);
+      bookList.add(book4);
+      Object discount = bookDiscountServiceImpl.calculateDiscount(bookList);
+    });
+  }
+
+
 
 
 
