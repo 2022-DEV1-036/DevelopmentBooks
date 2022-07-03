@@ -52,25 +52,6 @@ public class BascketDiscountControllerTest {
 
   }
 
-  /* Test : shouldThrowExceptionWhenABookPriceOrBookNameAreEmptyOrNull
-   * */
-  @Test
-  public void shouldThrowExceptionWhenBookPriceOrBookNameAreEmptyOrNull() throws Exception {
-    Assertions.assertThrows(NestedServletException.class, () -> {
-      List<Book> bookList = new ArrayList<Book>();
-      Book book1 = new Book(null,null);
-      Book book2 = new Book();
-      Book book3 = new Book(null,null);
-      Book book4 = new Book();
-      bookList.add(book1);
-      bookList.add(book2);
-      bookList.add(book3);
-      bookList.add(book4);
-
-      mockMvc.perform(post("/api/v1/discount")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(bookList)));});
-  }
 
 
 
