@@ -20,33 +20,40 @@ public class BookDiscountServiceImpl implements BookDiscountService {
     Integer numberOfBooks = bookList.size();
     BasketDiscountPrice basketDiscountPrice = new BasketDiscountPrice();
     int numberOfDifferentBooks = calculateNumberOfDifferentBooks(bookList);
+
+    if (numberOfBooks==0){
+      throw new EmptyBasketException("Your basket is empty !");
+    }
     switch (numberOfDifferentBooks) {
       case 0:
-        throw new EmptyBasketException("Your basket is empty !");
+        if (numberOfBooks!=0){
+          basketDiscountPrice.setBasketAmount(calculateTotalBasketAmount(numberOfBooks, bookList.get(0).getBookPrice()));
+          basketDiscountPrice.setNumberOfArticles(numberOfBooks);
+        }
       case 1:
         basketDiscountPrice = new BasketDiscountPrice(bookList.get(0).getBookPrice(), numberOfBooks);
         break;
       case 2:
         basketDiscountPrice.setBasketAmount(
-          calculateTotalBasketDiscount(
+          calculateTotalBasketAmount(
             numberOfBooks, bookList.get(0).getBookPrice())
-            - (calculateTotalBasketDiscount(numberOfBooks, bookList.get(0).getBookPrice() * 5 / 100))
+            - (calculateTotalBasketAmount(numberOfBooks, bookList.get(0).getBookPrice() * 5 / 100))
         );
         basketDiscountPrice.setNumberOfArticles(numberOfBooks);
         break;
       case 3:
-        if(numberOfBooks!=4){
+        if (numberOfBooks != 4) {
           basketDiscountPrice.setBasketAmount(
-            calculateTotalBasketDiscount(
+            calculateTotalBasketAmount(
               numberOfBooks, bookList.get(0).getBookPrice())
-          -   (calculateTotalBasketDiscount(numberOfBooks, bookList.get(0).getBookPrice() * 10 / 100))
+              - (calculateTotalBasketAmount(numberOfBooks, bookList.get(0).getBookPrice() * 10 / 100))
           );
           basketDiscountPrice.setNumberOfArticles(numberOfBooks);
-        }else {
+        } else {
           basketDiscountPrice.setBasketAmount(
-            calculateTotalBasketDiscount(
+            calculateTotalBasketAmount(
               numberOfBooks, bookList.get(0).getBookPrice())
-              - (calculateTotalBasketDiscount(numberOfBooks-1, bookList.get(0).getBookPrice() * 10 / 100))
+              - (calculateTotalBasketAmount(numberOfBooks - 1, bookList.get(0).getBookPrice() * 10 / 100))
           );
           basketDiscountPrice.setNumberOfArticles(numberOfBooks);
         }
@@ -54,17 +61,17 @@ public class BookDiscountServiceImpl implements BookDiscountService {
         break;
       case 4:
         basketDiscountPrice.setBasketAmount(
-          calculateTotalBasketDiscount(
+          calculateTotalBasketAmount(
             numberOfBooks, bookList.get(0).getBookPrice())
-            - (calculateTotalBasketDiscount(numberOfBooks, bookList.get(0).getBookPrice() * 20 / 100))
+            - (calculateTotalBasketAmount(numberOfBooks, bookList.get(0).getBookPrice() * 20 / 100))
         );
         basketDiscountPrice.setNumberOfArticles(numberOfBooks);
         break;
       case 5:
         basketDiscountPrice.setBasketAmount(
-          calculateTotalBasketDiscount(
+          calculateTotalBasketAmount(
             numberOfBooks, bookList.get(0).getBookPrice())
-            - (calculateTotalBasketDiscount(numberOfBooks, bookList.get(0).getBookPrice() * 25 / 100))
+            - (calculateTotalBasketAmount(numberOfBooks, bookList.get(0).getBookPrice() * 25 / 100))
         );
         basketDiscountPrice.setNumberOfArticles(numberOfBooks);
         break;
@@ -90,7 +97,7 @@ public class BookDiscountServiceImpl implements BookDiscountService {
     return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
   }
 
-  public Double calculateTotalBasketDiscount(int numberOfBooks, Double bookPrice) {
+  public Double calculateTotalBasketAmount(int numberOfBooks, Double bookPrice) {
     return numberOfBooks * bookPrice;
   }
 }

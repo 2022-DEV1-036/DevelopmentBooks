@@ -221,6 +221,7 @@ public class BookDiscountServiceImplTest {
 
     assertEquals(new BasketDiscountPrice(185.00,4), basketDiscountPrice);
   }
+  
 
 
 }
