@@ -6,6 +6,7 @@ import com.smartiqa.DevelopmentBooks.models.Book;
 import java.util.List;
 
 public interface BookDiscountService {
-  public BasketDiscountPrice calculateDiscount(List<Book> bookList);
-  public int calculateNumberOfDifferentBooks(List<Book> bookList) ;
-  }
+   BasketDiscountPrice calculateDiscount(List<Book> bookList);
+   int calculateNumberOfDifferentBooks(List<Book> bookList) ;
+   List<Book> getBooks();
+}
